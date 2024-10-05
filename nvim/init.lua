@@ -167,6 +167,18 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagn
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
+-- Oil.Nvim plugin start
+-- vim.keymap.set('n', '<leader>o', ':Oil --float<CR>', { desc = 'Open diagnostic [Q]uickfix list' })
+
+-- TODO: lear these git workflows - undotree and git-fugitive
+--
+-- undotree toggle
+-- vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+-- git-fugitive merge conflict picker keymaps (notice the diffup command in eaach of them to make the alignment right after picking a change)
+-- pick the target change on the left
+-- vim.keymap.set('n', '<leader>g2', '<CMD>diffget //2 | diffup<CR>')
+-- pick the merge branch change on the right
+-- vim.keymap.set('n', '<leader>g3', '<CMD>diffget //3 | diffup<CR>')
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -238,7 +250,10 @@ require('lazy').setup({
   --    require('Comment').setup({})
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  {
+    'numToStr/Comment.nvim',
+    opts = {},
+  },
 
   -- Here is a more advanced example where we pass configuration
   -- options to `gitsigns.nvim`. This is equivalent to the following Lua:
@@ -256,6 +271,11 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
     },
+    config = function()
+      require('gitsigns').setup()
+      vim.keymap.set('n', '<leader>gp', ':Gitsigns preview_hunk<CR>', {})
+      vim.keymap.set('n', '<leader>gt', ':Gitsigns toggle_current_line_blame<CR>', {})
+    end,
   },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
@@ -280,19 +300,26 @@ require('lazy').setup({
       require('which-key').setup()
 
       -- Document existing key chains
-      require('which-key').register {
-        ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-        ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-        ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
-        ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
+      require('which-key').add {
+        { '<leader>c', group = '[C]ode' },
+        { '<leader>c_', hidden = true },
+        { '<leader>d', group = '[D]ocument' },
+        { '<leader>d_', hidden = true },
+        { '<leader>h', group = 'Git [H]unk' },
+        { '<leader>h_', hidden = true },
+        { '<leader>r', group = '[R]ename' },
+        { '<leader>r_', hidden = true },
+        { '<leader>s', group = '[S]earch' },
+        { '<leader>s_', hidden = true },
+        { '<leader>t', group = '[T]oggle' },
+        { '<leader>t_', hidden = true },
+        { '<leader>w', group = '[W]orkspace' },
+        { '<leader>w_', hidden = true },
       }
       -- visual mode
-      require('which-key').register({
-        ['<leader>h'] = { 'Git [H]unk' },
-      }, { mode = 'v' })
+      require('which-key').add {
+        { '<leader>h', desc = 'Git [H]unk', mode = 'v' },
+      }
     end,
   },
 
@@ -585,7 +612,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        tsserver = {},
+        ts_ls = {},
 
         cssls = {},
         html = {},
@@ -799,39 +826,39 @@ require('lazy').setup({
     end,
   },
 
-  --{ -- You can easily change to a different colorscheme.
-  --  -- Change the name of the colorscheme plugin below, and then
-  --  -- change the command in the config to whatever the name of that colorscheme is.
+  { -- You can easily change to a different colorscheme.
+    -- Change the name of the colorscheme plugin below, and then
+    -- change the command in the config to whatever the name of that colorscheme is.
 
-  --  -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-  --  'folke/tokyonight.nvim',
-  --  priority = 1000, -- Make sure to load this before all the other start plugins.
-  --  init = function()
-  --    -- Load the colorscheme here.
-  --    -- Like many other themes, this one has different styles, and you could load
-  --    -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-  --    vim.cmd.colorscheme 'tokyonight-night'
+    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+    'folke/tokyonight.nvim',
+    priority = 1000, -- Make sure to load this before all the other start plugins.
+    init = function()
+      -- Load the colorscheme here.
+      -- Like many other themes, this one has different styles, and you could load
+      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+      vim.cmd.colorscheme 'tokyonight-night'
 
-  --    -- You can configure highlights by doing something like:
-  --    vim.cmd.hi 'Comment gui=none'
-  --  end,
-  --},
-  -- {
-  --   'catppuccin/nvim',
-  --   name = 'catppuccin',
-  --   priority = 1000,
-  --   init = function()
-  --     vim.cmd.colorscheme 'catppuccin-macchiato'
-  --   end,
-  -- },
-  {
-    'xero/miasma.nvim',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      vim.cmd 'colorscheme miasma'
+      -- You can configure highlights by doing something like:
+      vim.cmd.hi 'Comment gui=none'
     end,
   },
+  --  {
+  --    'catppuccin/nvim',
+  --    name = 'catppuccin',
+  --    priority = 1000,
+  --    init = function()
+  --      vim.cmd.colorscheme 'catppuccin-macchiato'
+  --    end,
+  --  },
+  -- {
+  --   'xero/miasma.nvim',
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd 'colorscheme miasma'
+  --   end,
+  -- },
   --
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },

@@ -41,4 +41,76 @@ return {
       vim.api.nvim_set_keymap('v', '<leader>zf', ":'<,'>ZkMatch<CR>", opts)
     end,
   },
+  {
+    'stevearc/oil.nvim',
+    config = function()
+      require('oil').setup {
+        ---@module 'oil'
+        ---@type oil.SetupOpts
+        opts = {},
+        -- Optional dependencies
+        dependencies = { { 'echasnovski/mini.icons', opts = {} } },
+        -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+      }
+
+      -- local opts = { noremap = true, silent = false }
+
+      vim.api.nvim_set_keymap('n', '<leader>o', ':Oil --float<CR>', { desc = 'Open oil.nvim file tree' })
+    end,
+  },
+  {
+    'tpope/vim-fugitive',
+    config = function()
+      -- local opts = { noremap = true, silent = false }
+      -- pick the target change on the left
+      vim.api.nvim_set_keymap('n', '<leader>g2', '<CMD>diffget //2 | diffup<CR>', { desc = 'keep target changes from left and align the diff page' })
+      -- pick the merge branch change on the right
+      vim.api.nvim_set_keymap('n', '<leader>g3', '<CMD>diffget //3 | diffup<CR>', { desc = 'take feature changes from right and align the diff page' })
+    end,
+  },
+  {
+    'mbbill/undotree',
+    config = function()
+      -- local opts = { noremap = true, silent = false }
+      vim.api.nvim_set_keymap('n', '<leader>u', '<CMD>UndotreeToggle<CR>', { desc = 'undo tree toggle' })
+    end,
+  },
+  {
+    'ThePrimeagen/harpoon',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    branch = 'harpoon2',
+    config = function()
+      local harpoon = require 'harpoon'
+
+      harpoon:setup {
+        settings = {
+          save_on_toggle = true,
+        },
+      }
+
+      vim.keymap.set('n', '<leader>ha', function()
+        harpoon:list():add()
+      end)
+
+      vim.keymap.set('n', '<leader>hh', function()
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end)
+
+      local function set_navigation(number)
+        vim.keymap.set('n', '<leader>' .. number, function()
+          harpoon:list():select(number)
+        end, { desc = 'Go to harpoon ' .. number })
+      end
+
+      set_navigation(1)
+      set_navigation(2)
+      set_navigation(3)
+      set_navigation(4)
+      set_navigation(5)
+      set_navigation(6)
+      set_navigation(7)
+      set_navigation(8)
+      set_navigation(9)
+    end,
+  },
 }
