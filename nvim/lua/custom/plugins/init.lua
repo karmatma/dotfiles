@@ -55,7 +55,7 @@ return {
 
       -- local opts = { noremap = true, silent = false }
 
-      vim.api.nvim_set_keymap('n', '<leader>o', ':Oil --float<CR>', { desc = 'Open oil.nvim file tree' })
+      vim.api.nvim_set_keymap('n', '<leader>-', ':Oil --float<CR>', { desc = 'Open oil.nvim file tree' })
     end,
   },
   {
