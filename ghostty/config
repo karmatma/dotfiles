@@ -1,0 +1,7 @@
+font-size=13
+theme = "rose-pine"
+cursor-color=#ff0000
+shell-integration-features = no-cursor
+cursor-style=block
+cursor-style-blink=true
+ 
