@@ -13,7 +13,7 @@ return {
 					fzf_opts = {
 						-- Show line numbers and file paths
 						["--delimiter"] = "'[:]'",
-						["--with-nth"] = "2..",
+						["--with-nth"] = "1..",
 					},
 				},
 				keymap = {

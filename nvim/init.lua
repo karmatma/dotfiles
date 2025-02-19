@@ -13,8 +13,8 @@ vim.opt.termguicolors = true
 
 -- colorscheme selections and settings
 -- vim.g.gruvbox_flat_style = "dark"
--- vim.opt.background = "light"
-vim.cmd.colorscheme("dayfox")
+vim.opt.background = "light"
+-- vim.cmd.colorscheme("dayfox")
 
 vim.g.have_nerd_font = true
 
