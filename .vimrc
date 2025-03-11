@@ -130,12 +130,13 @@ let lspServers = [
         \ }, 
     \ #{ name: 'rustanalyzer', 
         \ filetype: ['rust'], 
-        \ path: '/home/shunti/.cargo/bin/rust-analyzer', 
+        \ path: '/home/shunti/.local/share/nvim/mason/bin/rust-analyzer',
         \ args: [], 
         \ syncInit: v:true, 
     \ }] 
 autocmd VimEnter * call LspAddServer(lspServers) 
 
+"\ path: '/home/shunti/.cargo/bin/rust-analyzer', 
 "Enable auto selection of the fist autocomplete item"
 augroup LspSetup 
     au! 
@@ -178,9 +179,9 @@ let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_on_text_change = 'never' 
 "Set linters for individual filetypes" 
 let g:ale_linters_explicit = 1 
-let g:ale_linters = { 
-   \ 'rust': ['cargo'], 
-\ } 
+" let g:ale_linters = { 
+"    \ 'rust': ['cargo'], 
+" \ } 
 
 "Don't warn about trailing whitespace, as it is auto-fixed by '*' above" 
 let g:ale_warn_about_trailing_whitespace = 0 

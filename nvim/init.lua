@@ -1,6 +1,5 @@
 require("config.lazy")
 require("config.remap")
-print("hello from init")
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -13,8 +12,25 @@ vim.opt.termguicolors = true
 
 -- colorscheme selections and settings
 -- vim.g.gruvbox_flat_style = "dark"
-vim.opt.background = "light"
+--
+-- need this for everforest colorscheme
+-- vim.opt.background = "light"
+--
+-- need this for nordfox colorscheme
 -- vim.cmd.colorscheme("dayfox")
+--
+-- below needed for github colorscheme
+-- vim.cmd("colorscheme github_dark_dimmed")
+--
+-- Sonokai
+vim.g.sonokai_style = "andromeda"
+vim.cmd("colorscheme sonokai")
+--
+-- Monokai pro
+-- vim.cmd("colorscheme monokai-pro")
+--
+-- Evergardern
+-- vim.cmd("colorscheme evergarden")
 
 vim.g.have_nerd_font = true
 
@@ -80,9 +96,9 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 
 -- Only set cursor color
--- vim.opt.guicursor = 'n-v-c:block-Cursor/lCursor'
-vim.cmd([[highlight Cursor guifg=white guibg=black]])
-vim.cmd([[highlight iCursor guifg=white guibg=steelblue]])
+-- vim.opt.guicursor = "n-v-c:block-Cursor/lCursor"
+-- vim.cmd([[highlight Cursor guifg=red guibg=red]])
+-- vim.cmd([[highlight iCursor guifg=red guibg=red]])
 vim.opt.guicursor =
 	"n-v-c:block-Cursor/iCursor-blinkwait200-blinkoff150-blinkon250,i-ci-ve:ver25,r-cr:hr20,o:hor20,a:blinkwait700-blinkoff200-blinkon250-Cursor/iCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
 
