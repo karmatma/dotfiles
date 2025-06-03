@@ -10,6 +10,13 @@ return { -- LSP Configuration & Plugins
 				auto_install = true,
 			},
 		},
+		{
+			"williamboman/mason-lspconfig.nvim",
+			lazy = false,
+			opts = {
+				auto_install = true,
+			},
+		},
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		-- 'nvim-java/nvim-java',
 
@@ -28,7 +35,10 @@ return { -- LSP Configuration & Plugins
 				},
 			},
 		},
+		-- { "nvim-java/nvim-java" },
 		{ "saghen/blink.cmp" },
+
+		-- { "mfussenegger/nvim-jdtls" },
 	},
 	opts = {
 		servers = {
@@ -52,6 +62,30 @@ return { -- LSP Configuration & Plugins
 			ts_ls = {},
 			cssls = {},
 			html = {},
+			-- jdtls = {
+			-- 	settings = {
+			-- 		java = {
+			-- 			configuration = {
+			-- 				runtimes = {
+			-- 					{
+			-- 						name = "Java 21",
+			-- 						-- Set this to the path of the JDK installation
+			-- 						path = "/usr/lib/jvm/java-17/bin/java",
+			-- 						default = true,
+			-- 					},
+			-- 				},
+			-- 			},
+			-- 		},
+			-- 	},
+			-- },
+			jdtls = {},
+		},
+		setup = {
+			{
+				jdtls = function()
+					return true -- avoid duplicate servers
+				end,
+			},
 		},
 	},
 	config = function(_, opts)
