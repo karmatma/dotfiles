@@ -54,7 +54,7 @@ return { -- LSP Configuration & Plugins
 				},
 			},
 			-- NOTE: Using Rustaceanvim
-			-- rust_analyzer = {},
+			rust_analyzer = { filetypes = { "rust" }, command = { "rust-analyzer" } },
 			pyright = {},
 			zls = {
 				command = { "$HOME/zls/zig-out/bin/zls" },
@@ -79,6 +79,29 @@ return { -- LSP Configuration & Plugins
 			-- 	},
 			-- },
 			jdtls = {},
+			asm_lsp = {
+				command = "asm-lsp",
+				-- 	filetypes = ["asm", "s", "S"],
+			},
+			-- Swift specific
+			-- remember -- treesitter didn't work
+			-- Swift toolkit needs to be installed this to work
+			-- https://www.swift.org/install/linux/
+			-- It should automatically install lsp as well
+			-- make sure `which sourcekit-lsp` gives a valid path
+			sourcekit = {
+				capabilities = {
+					workspace = {
+						didChangeWatchedFiles = {
+							dynamicRegistration = true,
+						},
+					},
+				},
+				filetypes = { "swift" },
+			},
+			clangd = {
+				filetypes = { "c", "cpp", "objc", "objcpp" },
+			},
 		},
 		setup = {
 			{

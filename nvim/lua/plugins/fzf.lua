@@ -12,7 +12,7 @@ return {
 					-- Customize the LSP result format
 					fzf_opts = {
 						-- Show line numbers and file paths
-						["--delimiter"] = "'[:]'",
+						["--delimiter"] = "[:]",
 						["--with-nth"] = "1..",
 					},
 				},

@@ -32,9 +32,9 @@ nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
-set tabstop=2
-set softtabstop=0 noexpandtab
-set shiftwidth=2 smarttab
+set tabstop=4
+set softtabstop=0 
+set shiftwidth=4 smarttab
 set noshiftround
 
 " Show file stats
@@ -90,6 +90,8 @@ Plug 'dense-analysis/ale'
 Plug 'bluz71/vim-mistfly-statusline'
 Plug 'sainnhe/sonokai'
 Plug 'sheerun/vim-polyglot'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'honza/vim-snippets'
 call plug#end()
 
 " Colorscheme settings
@@ -148,13 +150,13 @@ inoremap <expr> <CR> pumvisible() ? "\<C-Y>": "\<CR>"
 
 "Mappings for most-used functions"
 nnoremap <leader>K :LspHover<CR> 
-nnoremap <leader>gd :LspGotoDefinition<CR> 
-nnoremap <leader>gD :LspGotoDeclaration<CR> 
-nnoremap <leader>gI :LspGotoImpl<CR> 
-nnoremap <leader>pd :LspPeekDefinition<CR> 
-nnoremap <leader>R :LspRename<CR> 
-nnoremap <leader>gR :LspPeekReferences<CR> 
-nnoremap <leader>gr :LspShowReferences<CR> 
+nnoremap gd :LspGotoDefinition<CR> 
+nnoremap gD :LspGotoDeclaration<CR> 
+nnoremap gI :LspGotoImpl<CR> 
+nnoremap pd :LspPeekDefinition<CR> 
+nnoremap <leader>rn :LspRename<CR> 
+nnoremap gR :LspPeekReferences<CR> 
+nnoremap gr :LspShowReferences<CR> 
 nnoremap <leader>ss :LspShowSignature<CR> 
 nnoremap <leader>sg :LspSymbolSearch<CR> 
 nnoremap <leader>o :LspDocumentSymbol<CR> 

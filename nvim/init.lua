@@ -43,6 +43,12 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 
+-- Tab vs space settings
+-- I like spaces instead of tabs
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
+
 vim.opt.colorcolumn = "100"
 
 -- Enable mouse mode, can be useful for resizing splits for example!
@@ -101,13 +107,20 @@ vim.opt.scrolloff = 10
 -- vim.cmd([[highlight iCursor guifg=red guibg=red]])
 vim.opt.guicursor =
 	"n-v-c:block-Cursor/iCursor-blinkwait200-blinkoff150-blinkon250,i-ci-ve:ver25,r-cr:hr20,o:hor20,a:blinkwait700-blinkoff200-blinkon250-Cursor/iCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
-
+-- vim.cmd([[
+--   highlight CursorLine cterm=NONE ctermbg=DarkGray guibg=#ff000
+-- ]])
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+
+-- buffur navigation remaps
+vim.keymap.set("n", "<leader>bn", "<cmd>bnext<CR>", { desc = "Go to next buffer" })
+vim.keymap.set("n", "<leader>bp", "<cmd>bprevious<CR>", { desc = "Go to previous buffer" })
+vim.keymap.set("n", "<leader>bl", "<cmd>buffers<CR>", { desc = "List buggers" })
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })

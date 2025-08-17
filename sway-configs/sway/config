@@ -23,6 +23,8 @@ for_window [tiling] border none
 
 # Disable title bars for all windows - this is not working right now.
 for_window [class=".*"] border none
+
+for_window [app_id="pulseaudio"] floating enable 
 #
 # Copy this to ~/.config/sway/config and edit it to your liking.
 #
@@ -32,7 +34,7 @@ for_window [class=".*"] border none
 #
 ### These are some of the key rebindings that I did - Edit- ashwath
 # Logo key. Use Mod1 for Alt.
-set $mod Mod1
+set $mod Mod4
 input * xkb_options caps:none
 input * xkb_options caps:ctrl_modifier
 # Home row direction keys, like vim
@@ -41,7 +43,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term terminator
+set $term kitty 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -81,7 +83,10 @@ exec_always --no-startup-id blueman-applet
 # Locking the screen
 #set $lock swaylock -f -F -e -k -c 000000
 set $lock ~/.config/sway/lock_screen.sh
-bindsym --to-code $mod+l exec $lock
+bindsym --to-code $mod+Shift+Escape exec $lock
+
+bindsym Print exec grim
+bindsym $mod+Shift+p exec grim -g "$(swaymsg -t get_tree | jq -j '.. | select(.type?) | select(.focused).rect | "\(.x),\(.y) \(.width)x\(.height)"')"
 
 #bindsym $mod+~ exec ./lock_screen.sh
 ### Idle configuration
@@ -302,9 +307,10 @@ bindsym F2 exec light -U 5
 bindsym F3 exec light -A 5
 
 ## Volume control - uses pactl
-bindsym $mod+Prior exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym $mod+Next exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym $mod+End exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym $mod+XF86AudioLowerVolume exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym $mod+XF86AudioRaiseVolume exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 #GTK Theme:
 #set $gnome-schema org.gnome.desktop.interface
 #exec_always {
@@ -313,5 +319,14 @@ bindsym $mod+End exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 #    gsettings set $gnome-schema cursor-theme 'Bibata-Modern-Ice'
 #    gsettings set $gnome-schema font-name 'SF Pro Display'
 #}
+
+
+## Autolaunch applications
+exec swaymsg "workspace 1; exec kitty"
+exec swaymsg "workspace 2; exec firefox"
+exec swaymsg "workspace 3; exec emacs"
+exec swaymsg "workspace 4; exec thunderbird"
+exec swaymsg "workspace 5; exec ghostty"
+exec swaymsg "workspace 7; exec discord"
 
 include /etc/sway/config.d/*
